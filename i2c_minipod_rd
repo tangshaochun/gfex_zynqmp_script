@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+from i2cdev import I2C
+#from __future__ import print_function
+import sys
+
+i2c = I2C(0x70, 1) # device @ 0x70, bus 1
+i2c.write(bytearray([int(sys.argv[1],16)]))# select I2C Bus
+i2c.close()
+
+i2c = I2C(int(sys.argv[2],16), 1) # device @ dev_addr, bus 1
+i2c.write(bytearray([127,int(sys.argv[3],16)]))# set the page
+i2c.write(bytearray([int(sys.argv[4],16)]))#set reg_addr
+reg_value=i2c.read(1)# Read N bits.
+i2c.close()
+#print('read done')
+print('0x{0:x}' .format(int(reg_value,16)))
