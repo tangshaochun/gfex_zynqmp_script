@@ -106,5 +106,15 @@ print("U56       TX      {0:d}                {1:.3f}            {2:.3f}        
 temperature,voltage1,voltage2,los=minipod_mon(Z_IIC_BUS2,MPOD_U72_ADDR)
 print("U72       RX      {0:d}                {1:.3f}            {2:.3f}          0x{3:X}".format(temperature,voltage1,voltage2,los))
 
+print('----------------MiniPODs connected to processor FPGA A-----------------------')
+print('Refdes    Type    Temperature(C)    3.3V Power(V)    2.5V Power(V)  LOS[11:0]')
+
+temperature,voltage1,voltage2,los=minipod_mon(Z_IIC_BUS2,MPOD_U91_ADDR)
+print("U91       RX      {0:d}                {1:.3f}            {2:.3f}          0x{3:X}".format(temperature,voltage1,voltage2,los))
+
+temperature,voltage1,voltage2,los=minipod_mon(Z_IIC_BUS2,MPOD_U91_ADDR)
+print("U91       RX      {0:d}                {1:.3f}            {2:.3f}          0x{3:X}".format(temperature,voltage1,voltage2,los))
+
+
 #temperature,voltage1,voltage2=minipod_mon(Z_IIC_BUS2,MPOD_U91_ADDR)
 #print("U91       RX      {0:d}                {1:.3f}            {2:.3f}".format(temperature,voltage1,voltage2))

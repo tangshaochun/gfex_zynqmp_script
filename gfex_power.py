@@ -140,39 +140,39 @@ print('3.3V IPMI        ADM1066 U52          {0:.3f}         N/A           N/A' 
 
 voltage=adm1066_voltage_mon(ADM1066_U52_ADDR,0xFD,0x1F,0xA2,0xA3,1)# read ADM1066 U52 channel VP2 INT_A_0.85V
 current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xB0)#read current of INT_A_0.85V from LTC2499 
-print('INT_A_0.85V      ADM1066 U52/LTC2499  {0:.3f}         {1:.3f}        {2:.3f}' .format(voltage,current,voltage*current))
+print('INT_A_0.85V      ADM1066 U52/LTC2499  {0:.3f}         {1:.3f}         {2:.3f}' .format(voltage,current,voltage*current))
 
 voltage=adm1066_voltage_mon(ADM1066_U52_ADDR,0xFB,0x1F,0xA4,0xA5,1)# read ADM1066 U52 channel VP3 MGTAVCC_A_0.9V
 current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xB8)##read current of MGTAVCC_A_0.9V from LTC2499
-print('MGTAVCC_A_0.9V   ADM1066 U52/LTC2499  {0:.3f}         {1:.3f}        {2:.3f}' .format(voltage,current,voltage*current))
+print('MGTAVCC_A_0.9V   ADM1066 U52/LTC2499  {0:.3f}         {1:.3f}         {2:.3f}' .format(voltage,current,voltage*current))
 
 voltage=adm1066_voltage_mon(ADM1066_U52_ADDR,0xF7,0x1F,0xA6,0xA7,1)# read ADM1066 U52 channel VP4 MGTAVCC_A_1.2V
 current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xB1)##read current of MGTATT_A_1.2V from LTC2499
-print('MGTAVTT_A_1.2V   ADM1066 U52/LTC2499  {0:.3f}         {1:.3f}        {2:.3f}' .format(voltage,current,voltage*current))
+print('MGTAVTT_A_1.2V   ADM1066 U52/LTC2499  {0:.3f}         {1:.3f}         {2:.3f}' .format(voltage,current,voltage*current))
 
 voltage=adm1066_voltage_mon(ADM1066_U52_ADDR,0xDF,0x1F,0xAA,0xAB,1)# read ADM1066 U52 channel VX1 INT_B_0.85V
 current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xB9)
-print('INT_B_0.85V      ADM1066 U52/LTC2499  {0:.3f}         {1:.3f}        {2:.3f}' .format(voltage,current,voltage*current))
+print('INT_B_0.85V      ADM1066 U52/LTC2499  {0:.3f}         {1:.3f}         {2:.3f}' .format(voltage,current,voltage*current))
 
 voltage=adm1066_voltage_mon(ADM1066_U52_ADDR,0xBF,0x1F,0xAC,0xAD,1)# read ADM1066 U52 channel VX2 MGTAVCC_B_0.9V
 current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xB2)
-print('MGTAVCC_B_0.9V   ADM1066 U52/LTC2499  {0:.3f}         {1:.3f}        {2:.3f}' .format(voltage,current,voltage*current))
+print('MGTAVCC_B_0.9V   ADM1066 U52/LTC2499  {0:.3f}         {1:.3f}         {2:.3f}' .format(voltage,current,voltage*current))
 
 voltage=adm1066_voltage_mon(ADM1066_U52_ADDR,0x7F,0x1F,0xAE,0xAF,1)# read ADM1066 U52 channel VX3 MGTAVTT_B_1.2V
 current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xBA)
-print('MGTAVTT_B_1.2V   ADM1066 U52/LTC2499  {0:.3f}         {1:.3f}        {2:.3f}' .format(voltage,current,voltage*current))
+print('MGTAVTT_B_1.2V   ADM1066 U52/LTC2499  {0:.3f}         {1:.3f}         {2:.3f}' .format(voltage,current,voltage*current))
 
 voltage=adm1066_voltage_mon(ADM1066_U52_ADDR,0xFF,0x1E,0xB0,0xB1,1)# read ADM1066 U52 channel VX4 INT_C_0.85V
 current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xB3)
-print('INT_C_0.85V      ADM1066 U52/LTC2499  {0:.3f}         {1:.3f}        {2:.3f}' .format(voltage,current,voltage*current))
+print('INT_C_0.85V      ADM1066 U52/LTC2499  {0:.3f}         {1:.3f}         {2:.3f}' .format(voltage,current,voltage*current))
 
 voltage=adm1066_voltage_mon(ADM1066_U52_ADDR,0x7F,0x1D,0xB2,0xB3,1)# read ADM1066 U52 channel VX5 MGTAVCC_C_0.9V
 current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xBB)
-print('MGTAVCC_C_0.9V   ADM1066 U52/LTC2499  {0:.3f}         {1:.3f}        {2:.3f}' .format(voltage,current,voltage*current))
+print('MGTAVCC_C_0.9V   ADM1066 U52/LTC2499  {0:.3f}         {1:.3f}         {2:.3f}' .format(voltage,current,voltage*current))
 
 voltage=adm1066_voltage_mon(ADM1066_U51_ADDR,0xBF,0x1F,0xAC,0xAD,1)# read ADM1066 U51 channel VX2 MGTAVTT_C_1.2V
 current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xB4)
-print('MGTAVTT_C_1.2V   ADM1066 U51/LTC2499  {0:.3f}         {1:.3f}        {2:.3f}' .format(voltage,current,voltage*current))
+print('MGTAVTT_C_1.2V   ADM1066 U51/LTC2499  {0:.3f}         {1:.3f}         {2:.3f}' .format(voltage,current,voltage*current))
 
 voltage=adm1066_voltage_mon(ADM1066_U51_ADDR,0x7F,0x1F,0xAE,0xAF,1)# read ADM1066 U51 channel VX3 INT_Z_0.85V
 current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xBC)
@@ -191,15 +191,15 @@ current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xBE)
 print('2.5V             ADM1066 U51/LTC2499  {0:.3f}         {1:.3f}         {2:.3f}' .format(voltage*2.181,current,2.181*voltage*current))
 
 voltage=adm1066_voltage_mon(ADM1066_U51_ADDR,0xFD,0x1F,0xA2,0xA3,1)# read ADM1066 U51 channel VP2 3.3V
-current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xB7)
-print('3.3V             ADM1066 U51/LTC2499  {0:.3f}         {1:.3f}         {2:.3f}' .format(voltage*4.363,current,4.363*voltage*current))
+current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xB7)/5
+print('3.3V             ADM1066 U51/LTC2499  {0:.3f}         {1:.3f}         {2:.3f}' .format(voltage *4.363,current,4.363*voltage*current))
 
 voltage=adm1066_voltage_mon(ADM1066_U51_ADDR,0xFB,0x1F,0xA4,0xA5,1)# read ADM1066 U51 channel VP3 1.8V
-current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xB6)
+current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xB6)/2
 print('1.8V             ADM1066 U51/LTC2499  {0:.3f}         {1:.3f}         {2:.3f}' .format(voltage*2.181,current,2.181*voltage*current))
 
 voltage=adm1066_voltage_mon(ADM1066_U51_ADDR,0xF7,0x1F,0xA6,0xA7,1)# read ADM1066 U51 channel VP4 DDR4_VDDQ_0.6V
-current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xBF)
+current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xBF)/10
 print('DDR4_VTT_0.6V    ADM1066 U51/LTC2499  {0:.3f}         N/A           N/A' .format(voltage))
 print('DDR4_VDDQ_1.2V   ADM1066 U51/LTC2499  {0:.3f}         {1:.3f}         {2:.3f}' .format(voltage*2,current,2*voltage*current))
 
