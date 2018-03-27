@@ -72,13 +72,13 @@ def adm1066_voltage_mon(dev_addr,reg_value_80,reg_value_81,reg_addr_vh,reg_addr_
   i2c.transfer(dev_addr, [I2C.Message([0x80,reg_value_80])])     # reg 0x80 select channel
   i2c.transfer(dev_addr, [I2C.Message([0x81,reg_value_81])])     # reg 0x81
   i2c.transfer(dev_addr, [I2C.Message([0x82,0x01+average_on*4])])# reg 0x82 select go bit
-  i2c.transfer(dev_addr, [I2C.Message([0x82]), read])            # reg 0x82, read the go bit status
+  i2c.transfer(dev_addr, [I2C.Message([0x82])])                  # reg 0x82
 
-  status=read.data[0]
-  if status != average_on*4:
+  while True:
+    sleep(1.0)
     i2c.transfer(dev_addr, [read])
     status=read.data[0] #keep checking the go bit, until it is equal average_on*4
-    sleep(0.5)
+    if status == average_on*4: break
 
   i2c.transfer(dev_addr, [I2C.Message([0x82,0x08+average_on*4])])
   i2c.transfer(dev_addr, [I2C.Message([reg_addr_vh]), # reg 0xA8 VH high 8bit voltage value
