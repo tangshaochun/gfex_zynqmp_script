@@ -13,7 +13,7 @@ v4b = False
 #convert a LinearFloat5_11 formatted word into a floating point value
 def lin5_11ToFloat(wordValue):
   binValue = int(wordValue,16)
-  #binValue=binValue>>8 | (binValue << 8 & 0xFF00)
+  binValue=binValue>>8 | (binValue << 8 & 0xFF00)
   #print('{0:s}' binValue)
 
   #wordValue = ' '.join(format(x, 'b') for x in bytearray(wordValue))
@@ -108,7 +108,8 @@ voltage=lin5_11ToFloat(reg_value)
 print('48V/54V          BMR458 DC/DC U11     {0:.3f}        N/A           N/A' .format(voltage))
 
 reg_value=bmr458_mon(BMR4582_U11_ADDR,0x8B)
-voltage=2**(-11)*int(reg_value,16)
+voltage_value = int(reg_value, 16)>>8 | (int(reg_value, 16) << 8 & 0xFF00)
+voltage=2**(-11)*voltage_value
 reg_value=bmr458_mon(BMR4582_U11_ADDR,0x8C)
 current=lin5_11ToFloat(reg_value)
 print('12V              BMR458 DC/DC U11     {0:.3f}        {1:.3f}         {2:.3f}' .format(voltage,current,voltage*current))
