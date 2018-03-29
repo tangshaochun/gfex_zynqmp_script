@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 from __future__ import print_function
-from i2cdev import I2C
-from configurations import Si5345, frequencies
 from time import sleep
 import sys
+
+from periphery import I2C
+from configurations import Si5345, frequencies
+from constants import *
 
 def batch(iterable, n=1):
   l = len(iterable)
@@ -12,7 +14,7 @@ def batch(iterable, n=1):
 
 def set_page(i2c, page):
   print('  Writing page: {0:02x}'.format(page))
-  i2c.write(bytearray([0x01, page]))
+  i2c.transfer(SI5345_U137_ADDR, [I2C.Message([0x01, page])])
 
 def do_i2c_block_write(i2c, block):
   page, register, value = block
@@ -20,7 +22,7 @@ def do_i2c_block_write(i2c, block):
     set_page(i2c, page)
     do_i2c_block_write.page = page
   print('  Writing     : {0:02x}{1:02x}'.format(register, value))
-  i2c.write(bytearray([register, value]))
+  i2c.transfer(SI5345_U137_ADDR, [I2C.Message([register, value])])
 
 do_i2c_block_write.page = 0x00
 
@@ -31,7 +33,7 @@ def set_frequency(frequency):
   if frequency not in frequencies:
     print('Invalid frequency, pick one of: {}'.format(frequencies.keys()))
     return False
-  i2c = I2C(0x68, 0) # device @ 0x68, bus 0
+  i2c = I2C("/dev/i2c-0")
   print('Handling preamble')
   do_i2c_write(i2c, Si5345['preamble'])
   sleep(0.3) # 300 ms delay
