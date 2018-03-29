@@ -67,21 +67,20 @@ def adm1066_voltage_mon(dev_addr,reg_value_80,reg_value_81,reg_addr_vh,reg_addr_
   i2c = I2C("/dev/i2c-1")
   #read the ADM1066 U52 with addr 0x34 and 0x35
   read = I2C.Message([0x0], read=True)
-  i2c.transfer(dev_addr, [I2C.Message([0x82,0x0+average_on*4]), # reset STOPWRITE BIT
-                          I2C.Message([0x80,reg_value_80]),     # reg 0x80 select channel
-                          I2C.Message([0x81,reg_value_81]),     # reg 0x81
-                          I2C.Message([0x82,0x01+average_on*4]),# reg 0x82 select go bit
-                          I2C.Message([0x82]),                  # reg 0x82
-                          read                                  # read the go bit status
-                          ])
+  i2c.transfer(dev_addr, [I2C.Message([0x82,0x0+average_on*4])]) # reset STOPWRITE BIT
+  i2c.transfer(dev_addr, [I2C.Message([0x80,reg_value_80])])     # reg 0x80 select channel
+  i2c.transfer(dev_addr, [I2C.Message([0x81,reg_value_81])])     # reg 0x81
+  i2c.transfer(dev_addr, [I2C.Message([0x82,0x01+average_on*4])])# reg 0x82 select go bit
+  i2c.transfer(dev_addr, [I2C.Message([0x82]), read])            # reg 0x82, read the go bit status
+
   status=read.data[0]
   if int(status,16) != average_on*4:
     i2c.transfer(dev_addr, [read])
     status=read.data[0] #keep checking the go bit, until it is equal average_on*4
     sleep(0.5)
 
-  i2c.transfer(dev_addr, [I2C.Message([0x82,0x08+average_on*4]),
-                          I2C.Message([reg_addr_vh]), # reg 0xA8 VH high 8bit voltage value
+  i2c.transfer(dev_addr, [I2C.Message([0x82,0x08+average_on*4])])
+  i2c.transfer(dev_addr, [I2C.Message([reg_addr_vh]), # reg 0xA8 VH high 8bit voltage value
                           read
                           ])
   vh=read.data[0]
