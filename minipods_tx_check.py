@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 from __future__ import print_function
-from i2cdev import I2C
-from math import trunc
-from time import sleep
 import sys
 
 from periphery import I2C
