@@ -34,10 +34,6 @@ def ad7414_mon(dev_addr):
 
 def ltc2499_temp_mon(dev_addr,reg_addr0,reg_addr1):
   i2c = I2C("/dev/i2c-1")
-  read = I2C.Message([0x0]*nbits, read=True)
-  i2c.transfer(dev_addr, [I2C.Message([reg_addr]), read]) # reg for read
-  i2c.close()
-
   i2c.transfer(dev_addr, [I2C.Message([reg_addr1,reg_addr0])])# Reg for read
   sleep(0.5)
 
