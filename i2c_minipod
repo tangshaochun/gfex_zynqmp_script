@@ -27,8 +27,8 @@ def minipod_reg_rd(i2c_bus_addr,dev_addr,page_addr,reg_addr):
 
 if len(sys.argv) != 5 or len(sys.argv) != 6:
   print('Must call this script like so:')
-  print('  - Read:  {0} i2c_bus_addr device_addr page register_addr')
-  print('  - Write: {0} i2c_bus_addr device_addr page register_addr register_value')
+  print('  - Read:  {0} i2c_bus_addr device_addr page register_addr'.format(sys.argv[0]))
+  print('  - Write: {0} i2c_bus_addr device_addr page register_addr register_value'.format(sys.argv[0]))
   sys.exit(1)
 
 i2c_bus_addr = int(sys.argv[1], 16)
