@@ -5,18 +5,8 @@ from math import trunc
 from time import sleep
 import sys
 
-#I2C PS BUS1 MUX TCA9548 ADDRESS Definitions
-SENSOR_IIC_BUS = 0x01 # Sensor I2c bus on gFEX board
+from constants import *
 
-#I2C MUX TCA9548 ADDRESS Definitions
-TCA9548_U93_ADDR = 0x70 #1110_000X      0XE0
-
-#SENSOR I2C BUS COMPONENTS ADDRESS Definitions
-INA226_U81_ADDR  = 0x40 #1000_000X      0X80
-BMR4582_U11_ADDR = 0x7F #1111_111X      0XFE
-ADM1066_U52_ADDR = 0x34 #0110_100X      0X68
-ADM1066_U51_ADDR = 0x35 #0110_101X      0X6A
-LTC2499_U1_ADDR  = 0x14 #0010_100X      0X28
 #convert a LinearFloat5_11 formatted word into a floating point value
 def lin5_11ToFloat(wordValue):
   binValue = int(wordValue,16)
@@ -82,7 +72,7 @@ def adm1066_voltage_mon(dev_addr,reg_value_80,reg_value_81,reg_addr_vh,reg_addr_
   i2c.write(bytearray([0x82,0x0+average_on*4]))# reset STOPWRITE BIT
   i2c.write(bytearray([0x80,reg_value_80]))# reg 0x80 select channel
   i2c.write(bytearray([0x81,reg_value_81]))# reg 0x81
-  
+
   i2c.write(bytearray([0x82,0x01+average_on*4]))# reg 0x82 select go bit
   i2c.write(bytearray([0x82]))# reg 0x82
   status=i2c.read(1)# read the go bit status
@@ -90,21 +80,21 @@ def adm1066_voltage_mon(dev_addr,reg_value_80,reg_value_81,reg_addr_vh,reg_addr_
     status=i2c.read(1) #keep checking the go bit, until it is equal average_on*4
     sleep(0.5)
   i2c.write(bytearray([0x82,0x08+average_on*4]))
-  
+
   i2c.write(bytearray([reg_addr_vh]))# reg 0xA8 VH high 8bit voltage value
-  vh=i2c.read(1)# 
+  vh=i2c.read(1)#
   i2c.write(bytearray([reg_addr_vl]))# reg 0xA9 VH low 8 bits voltag value
   vl=i2c.read(1)#
   i2c.close()
   voltage= ((int(vh,16)*256+int(vl,16))*2.048/4095)/(2**(average_on*4))
   return voltage
-  #print('12V  measured by ADM1066 is {0:.3f} V'.format(voltage)) 
+  #print('12V  measured by ADM1066 is {0:.3f} V'.format(voltage))
 
 
 #set the i2c mux channel, since all the device is under SENSOR_IIC_BUS, just need to set once at the begining.
-i2c = I2C(TCA9548_U93_ADDR, 1) # device @ 0x70, bus 1              
-i2c.write(bytearray([SENSOR_IIC_BUS]))# SENSOR_IIC_BUS is selected 
-i2c.close() 
+i2c = I2C(TCA9548_U93_ADDR, 1) # device @ 0x70, bus 1
+i2c.write(bytearray([SENSOR_IIC_BUS]))# SENSOR_IIC_BUS is selected
+i2c.close()
 print('-------------Power monitoring of gFEX production board--------------------')
 print('Power Rail       Monitoring Device    Voltage(V)    Current(A)    Power(W)')
 #12V power module BMR458 Voltage
@@ -139,7 +129,7 @@ voltage=adm1066_voltage_mon(ADM1066_U52_ADDR,0xFE,0x1F,0xA0,0xA1,1)# read ADM106
 print('3.3V IPMI        ADM1066 U52          {0:.3f}         N/A           N/A' .format(voltage*4.363))
 
 voltage=adm1066_voltage_mon(ADM1066_U52_ADDR,0xFD,0x1F,0xA2,0xA3,1)# read ADM1066 U52 channel VP2 INT_A_0.85V
-current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xB0)#read current of INT_A_0.85V from LTC2499 
+current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xB0)#read current of INT_A_0.85V from LTC2499
 print('INT_A_0.85V      ADM1066 U52/LTC2499  {0:.3f}         {1:.3f}         {2:.3f}' .format(voltage,current,voltage*current))
 
 voltage=adm1066_voltage_mon(ADM1066_U52_ADDR,0xFB,0x1F,0xA4,0xA5,1)# read ADM1066 U52 channel VP3 MGTAVCC_A_0.9V

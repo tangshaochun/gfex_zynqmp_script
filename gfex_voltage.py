@@ -5,17 +5,7 @@ from math import trunc
 from time import sleep
 import sys
 
-#I2C PS BUS1 MUX TCA9548 ADDRESS Definitions
-SENSOR_IIC_BUS = 0x01 # Sensor I2c bus on gFEX board
-
-#I2C MUX TCA9548 ADDRESS Definitions
-TCA9548_U93_ADDR = 0x70 #1110_000X      0XE0
-
-#SENSOR I2C BUS COMPONENTS ADDRESS Definitions
-INA226_U81_ADDR  = 0x40 #1000_000X      0X80
-BMR4582_U11_ADDR = 0x7F #1111_111X      0XFE
-ADM1066_U52_ADDR = 0x34 #0110_100X      0X68
-ADM1066_U51_ADDR = 0x35 #0110_101X      0X6A
+from constants import *
 
 #convert a LinearFloat5_11 formatted word into a floating point value
 def lin5_11ToFloat(wordValue):
@@ -49,9 +39,9 @@ def bmr458_mon(dev_addr,reg_addr):
   #print('BMR458 value  is {0:d}' .format(value))
   return '{0:x}'.format(value)
 #set the i2c mux channel
-i2c = I2C(TCA9548_U93_ADDR, 1) # device @ 0x70, bus 1              
-i2c.write(bytearray([SENSOR_IIC_BUS]))# SENSOR_IIC_BUS is selected 
-i2c.close() 
+i2c = I2C(TCA9548_U93_ADDR, 1) # device @ 0x70, bus 1
+i2c.write(bytearray([SENSOR_IIC_BUS]))# SENSOR_IIC_BUS is selected
+i2c.close()
 #12V power module BMR458 Voltage
 reg_value=bmr458_mon(BMR4582_U11_ADDR,0x88)
 voltage=lin5_11ToFloat(reg_value)

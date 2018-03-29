@@ -16,7 +16,7 @@ def test_repstart(smbus=True):
         bus.i2c_rdwr(write, read)
       value = list(read)
       value = value[1]*256 + value[0]
-      return  hex(value) 
+      return  hex(value)
     except IOError:
       return False
   else:
