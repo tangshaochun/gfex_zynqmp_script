@@ -40,7 +40,7 @@ def ltc2499_temp_mon(dev_addr,reg_addr0,reg_addr1):
   read = I2C.Message([0x0]*4, read=True)
   i2c.transfer(dev_addr, [read])
   i2c.close()
-  adc_code=int(bytes(bytearray(read.data)).encode('hex'))
+  adc_code=int(bytes(bytearray(read.data)).encode('hex'), 16)
 
   resolution=2500./0x80000000
   amplitude=(adc_code-0x40000000)*resolution
