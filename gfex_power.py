@@ -35,7 +35,7 @@ def bmr458_mon(dev_addr,reg_addr):
   read = I2C.Message([0x0]*2, read=True)
   i2c.transfer(dev_addr, [write, read])
   i2c.close()
-  return bytes(bytearray(read.data[::-1])).encode('hex')
+  return bytes(bytearray(read.data)).encode('hex')
 
 def ina226_reg_write(dev_addr,reg_addr,reg_value0,reg_value1):
   i2c = I2C("/dev/i2c-1")
@@ -47,7 +47,7 @@ def ina226_reg_read(dev_addr,reg_addr,nbits):
   read = I2C.Message([0x0]*nbits, read=True)
   i2c.transfer(dev_addr, [I2C.Message([reg_addr]),read])
   i2c.close()
-  return bytes(bytearray(read.data[::-1])).encode('hex')
+  return bytes(bytearray(read.data)).encode('hex')
 
 def ltc2499_current_mon(dev_addr,reg_addr0,reg_addr1):
   i2c = I2C("/dev/i2c-1")
@@ -55,7 +55,7 @@ def ltc2499_current_mon(dev_addr,reg_addr0,reg_addr1):
   sleep(0.5)
   read = I2C.Message([0x0]*4, read=True)
   i2c.transfer(dev_addr, [read])
-  adc_code=bytes(bytearray(read.data[::-1])).encode('hex')
+  adc_code=bytes(bytearray(read.data)).encode('hex')
   i2c.close()
   resolution=2500./0x80000000
   if(int(adc_code,16)<0x40000000):
