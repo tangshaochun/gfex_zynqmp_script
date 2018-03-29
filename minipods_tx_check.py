@@ -5,33 +5,31 @@ from math import trunc
 from time import sleep
 import sys
 
+from periphery import I2C
 from constants import *
+from configurations import board
 
 def minipod_reg_wr(i2c_bus_addr,dev_addr,page_addr,reg_addr,reg_value):
-  i2c = I2C(TCA9548_U93_ADDR, 1) # device @ 0x70, bus 1
-  i2c.write(bytearray([i2c_bus_addr]))# select I2C Bus
-  i2c.close()
-  i2c = I2C(dev_addr, 1) # device @ dev_addr, bus 1
-  i2c.write(bytearray([127,page_addr]))# set the page
-  i2c.write(bytearray([reg_addr,reg_value]))#write the value to the reg_addr
-  #print('write done')
+  i2c = I2C("/dev/i2c-1")
+  i2c.transfer(TCA9548_U93_ADDR, [I2C.Message([i2c_bus_addr])]) # select I2C Bus
+  i2c.transfer(dev_addr, [I2C.Message([127,page_addr])]) # set the page
+  i2c.transfer(dev_addr, [I2C.Message([reg_addr,reg_value])]) # write to reg_addr
   i2c.close()
 
 def minipod_reg_rd(i2c_bus_addr,dev_addr,page_addr,reg_addr):
-  i2c = I2C(TCA9548_U93_ADDR, 1) # device @ 0x70, bus 1
-  i2c.write(bytearray([i2c_bus_addr]))# select I2C Bus
+  i2c = I2C("/dev/i2c-1")
+  i2c.transfer(TCA9548_U93_ADDR, [I2C.Message([i2c_bus_addr])]) # select I2C Bus
+  i2c.transfer(dev_addr, [I2C.Message([127,page_addr])]) # set the page
+  read = I2C.Message([0x0], read=True)
+  i2c.transfer(dev_addr, [I2C.Message([reg_addr,read])])
   i2c.close()
-  i2c = I2C(dev_addr, 1) # device @ dev_addr, bus 1
-  i2c.write(bytearray([127,page_addr]))# set the page
-  i2c.write(bytearray([reg_addr]))#set reg_addr
-  reg_value=i2c.read(1)# Read N bits.
-  i2c.close()
+  reg_value=read.data[0]
   print('read back is 0x{0:x}' .format(int(reg_value,16)))
   return reg_value
+
 def minpod_check (i2c_bus_addr,dev_addr):
   for i in range(228, 234):
     minipod_reg_rd(i2c_bus_addr,dev_addr,0x01,i)
-
 
 # MiniPODs monitoring
 print('---------MiniPOD TX U3------')
@@ -52,4 +50,3 @@ print('---------MiniPOD TX U34------')
 minpod_check(Z_IIC_BUS5,MPOD_U32_ADDR)
 print('---------MiniPOD TX U34------')
 minpod_check(Z_IIC_BUS5,MPOD_U25_ADDR)
-
