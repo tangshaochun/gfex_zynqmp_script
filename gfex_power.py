@@ -53,7 +53,8 @@ def ltc2499_current_mon(dev_addr,reg_addr0,reg_addr1):
   i2c = I2C("/dev/i2c-1")
   i2c.transfer(dev_addr, [I2C.Message([reg_addr1, reg_addr0])])
   sleep(0.5)
-  i2c.transfer(dev_addr, [I2C.Message([0x0]*4, read=True)])
+  read = I2C.Message([0x0]*4, read=True)
+  i2c.transfer(dev_addr, [read])
   adc_code=bytes(bytearray(read.data[::-1])).encode('hex')
   i2c.close()
   resolution=2500./0x80000000
