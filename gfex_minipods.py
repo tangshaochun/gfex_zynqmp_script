@@ -13,9 +13,8 @@ def minipod_reg_wr(i2c_bus_addr,dev_addr,page_addr,reg_addr,reg_value):
   i2c = I2C("/dev/i2c-1")
   i2c.transfer(TCA9548_U93_ADDR, [I2C.Message([i2c_bus_addr])]) # select i2c bus
 
-  i2c.transfer(dev_addr, [I2C.Message([127,page_addr]),     # set the page
-                          I2C.Message([reg_addr,reg_value]) # write the value to the reg_addr
-                         ])
+  i2c.transfer(dev_addr, [I2C.Message([127,page_addr])])    # set the page
+  i2c.transfer(dev_addr, [I2C.Message([reg_addr,reg_value])]) # write the value to the reg_addr
   i2c.close()
 
 def minipod_reg_rd(i2c_bus_addr,dev_addr,page_addr,reg_addr):
@@ -23,10 +22,10 @@ def minipod_reg_rd(i2c_bus_addr,dev_addr,page_addr,reg_addr):
   i2c.transfer(TCA9548_U93_ADDR, [I2C.Message([i2c_bus_addr])]) # select i2c bus
 
   read = I2C.Message([0x0])
-  i2c.transfer(dev_addr, [I2C.Message([127,page_addr]), # set the page
-                          I2C.Message([reg_addr]),      # set reg_addr
-                          read
-                         ])
+  i2c.transfer(dev_addr, [I2C.Message([127,page_addr])]) # set the page
+  i2c.transfer(dev_addr, [I2C.Message([reg_addr])])      # set reg_addr
+  i2c.transfer(dev_addr, [read])
+
   i2c.close()
 
   return read.data[0]
