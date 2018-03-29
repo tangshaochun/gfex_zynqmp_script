@@ -74,7 +74,7 @@ def adm1066_voltage_mon(dev_addr,reg_value_80,reg_value_81,reg_addr_vh,reg_addr_
   i2c.transfer(dev_addr, [I2C.Message([0x82]), read])            # reg 0x82, read the go bit status
 
   status=read.data[0]
-  if int(status,16) != average_on*4:
+  if status != average_on*4:
     i2c.transfer(dev_addr, [read])
     status=read.data[0] #keep checking the go bit, until it is equal average_on*4
     sleep(0.5)
