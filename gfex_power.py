@@ -91,7 +91,7 @@ def adm1066_voltage_mon(dev_addr,reg_value_80,reg_value_81,reg_addr_vh,reg_addr_
   vl=read.data[0]
   i2c.close()
 
-  voltage= ((int(vh,16)*256+int(vl,16))*2.048/4095)/(2**(average_on*4))
+  voltage= ((vh*256 + vl)*2.048/4095)/(2**(average_on*4))
   return voltage
 
 #set the i2c mux channel, since all the device is under SENSOR_IIC_BUS, just need to set once at the begining.
