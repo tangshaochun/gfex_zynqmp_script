@@ -18,14 +18,16 @@ def minipod_reg_wr(i2c_bus_addr,dev_addr,page_addr,reg_addr,reg_value):
 
 def minipod_reg_rd(i2c_bus_addr,dev_addr,page_addr,reg_addr):
   i2c = I2C("/dev/i2c-1")
-  i2c.transfer(TCA9548_U93_ADDR, [I2C.Message([i2c_bus_addr])]) # select I2C Bus
-  i2c.transfer(dev_addr, [I2C.Message([127,page_addr])]) # set the page
+  i2c.transfer(TCA9548_U93_ADDR, [I2C.Message([i2c_bus_addr])]) # select i2c bus
+
   read = I2C.Message([0x0], read=True)
-  i2c.transfer(dev_addr, [I2C.Message([reg_addr,read])])
+  i2c.transfer(dev_addr, [I2C.Message([127,page_addr])]) # set the page
+  i2c.transfer(dev_addr, [I2C.Message([reg_addr])])      # set reg_addr
+  i2c.transfer(dev_addr, [read])
   i2c.close()
-  reg_value=read.data[0]
-  print('read back is 0x{0:x}' .format(reg_value))
-  return reg_value
+
+  print('read back is 0x{0:x}' .format(read.data[0]))
+  return read.data[0]
 
 def minpod_check (i2c_bus_addr,dev_addr):
   for i in range(228, 234):
