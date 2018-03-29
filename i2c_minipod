@@ -22,7 +22,6 @@ def minipod_reg_rd(i2c_bus_addr,dev_addr,page_addr,reg_addr):
   i2c.transfer(dev_addr, [read])
   i2c.close()
 
-  print('read back is 0x{0:x}' .format(read.data[0]))
   return read.data[0]
 
 if len(sys.argv) != 5 and len(sys.argv) != 6:
