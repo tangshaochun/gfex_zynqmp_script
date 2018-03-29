@@ -36,15 +36,15 @@ def minipod_mon(i2c_bus_addr,dev_addr):
 
   vh=minipod_reg_rd(i2c_bus_addr,dev_addr,0x00,32) #3.3V monitoring VH
   vl=minipod_reg_rd(i2c_bus_addr,dev_addr,0x00,33) #3.3V monitoring VL
-  voltage1=(int(vh,16)*256+int(vl,16))*0.0001
+  voltage1 = (vh*256 + vl)*0.0001
   vh=minipod_reg_rd(i2c_bus_addr,dev_addr,0x00,34) #2.5V monitoring VH
   vl=minipod_reg_rd(i2c_bus_addr,dev_addr,0x00,35) #2.5V monitoring VL
-  voltage2=(int(vh,16)*256+int(vl,16))*0.0001
+  voltage2 = (vh*256 + vl)*0.0001
 
   los_h=minipod_reg_rd(i2c_bus_addr,dev_addr,0x00,9); #LOS channel 8-11
   los_l=minipod_reg_rd(i2c_bus_addr,dev_addr,0x00,10); #LOS channel 0-7
-  los=int(los_h,16)*256+int(los_l,16)
-  return int(temperature,16),voltage1,voltage2,los
+  los = los_h*256 + los_l
+  return temperature,voltage1,voltage2,los
 
 # MiniPODs monitoring
 print('----------------MiniPODs connected to ZYNQ Ultrascale+-----------------------')
