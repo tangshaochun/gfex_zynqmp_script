@@ -24,7 +24,7 @@ def minipod_reg_rd(i2c_bus_addr,dev_addr,page_addr,reg_addr):
   i2c.transfer(dev_addr, [I2C.Message([reg_addr,read])])
   i2c.close()
   reg_value=read.data[0]
-  print('read back is 0x{0:x}' .format(int(reg_value,16)))
+  print('read back is 0x{0:x}' .format(reg_value)
   return reg_value
 
 def minpod_check (i2c_bus_addr,dev_addr):
