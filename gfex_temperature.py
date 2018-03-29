@@ -98,6 +98,16 @@ reg_value=bmr458_mon(BMR4582_U11_ADDR,0x8D)
 temperature=lin5_11ToFloat(reg_value)
 print('U11       BMR458      {0:d}                12V DC/DC Converter' .format(trunc(temperature)))
 
+# LTM4630A power modules Temperature monitoring
+temperature=ltc2499_temp_mon(LTC2499_U2_ADDR,0x90,0xBC)
+print('U66       LTM4630A    {0:d}                DDR4_VDDQ_1.2V/MGTAVTT_Z_1.2V' .format(trunc(temperature)))
+temperature=ltc2499_temp_mon(LTC2499_U2_ADDR,0x90,0xB5)
+print('U73       LTM4650A    {0:d}                Power module of INT_Z_0.85V' .format(trunc(temperature)))
+temperature=ltc2499_temp_mon(LTC2499_U2_ADDR,0x90,0xBD)
+print('U55       LTM4630A    {0:d}                Power module of 2.5V' .format(trunc(temperature)))
+temperature=ltc2499_temp_mon(LTC2499_U2_ADDR,0x90,0xB6)
+print('U59       LTM4630A    {0:d}                MGTAVCC_Z_0.9V/3.3V' .format(trunc(temperature)))
+
 if board == 'v4b':
   # LTM4630A power modules Temperature monitoring
   temperature=ltc2499_temp_mon(LTC2499_U2_ADDR,0x90,0xB0)
@@ -118,11 +128,4 @@ if board == 'v4b':
   print('U125      LTM4630A    {0:d}                Power module of MGTAVCC_C_0.9V' .format(trunc(temperature)))
   temperature=ltc2499_temp_mon(LTC2499_U2_ADDR,0x90,0xB4)
   print('U44       LTM4630A    {0:d}                Power module of MGTAVTT_C_1.2V' .format(trunc(temperature)))
-  temperature=ltc2499_temp_mon(LTC2499_U2_ADDR,0x90,0xBC)
-  print('U66       LTM4630A    {0:d}                DDR4_VDDQ_1.2V/MGTAVTT_Z_1.2V' .format(trunc(temperature)))
-  temperature=ltc2499_temp_mon(LTC2499_U2_ADDR,0x90,0xB5)
-  print('U73       LTM4650A    {0:d}                Power module of INT_Z_0.85V' .format(trunc(temperature)))
-  temperature=ltc2499_temp_mon(LTC2499_U2_ADDR,0x90,0xBD)
-  print('U55       LTM4630A    {0:d}                Power module of 2.5V' .format(trunc(temperature)))
-  temperature=ltc2499_temp_mon(LTC2499_U2_ADDR,0x90,0xB6)
-  print('U59       LTM4630A    {0:d}                MGTAVCC_Z_0.9V/3.3V' .format(trunc(temperature)))
+
