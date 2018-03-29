@@ -6,9 +6,7 @@ import sys
 
 from periphery import I2C
 from constants import *
-
-v4a = True
-v4b = False
+from configurations import board
 
 #convert a LinearFloat5_11 formatted word into a floating point value
 def lin5_11ToFloat(wordValue):
@@ -100,7 +98,7 @@ i2c = I2C("/dev/i2c-1")
 i2c.transfer(TCA9548_U93_ADDR, [I2C.Message([SENSOR_IIC_BUS])]) # SENSOR_IIC_BUS is selected
 i2c.close()
 
-print('-------------Power monitoring of gFEX production board--------------------')
+print('-------------Power monitoring of gFEX production board {0:s}--------------------'.format(board))
 print('Power Rail       Monitoring Device    Voltage(V)    Current(A)    Power(W)')
 #12V power module BMR458 Voltage
 reg_value=bmr458_mon(BMR4582_U11_ADDR,0x88)
@@ -163,7 +161,7 @@ current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xBF)/10
 print('DDR4_VTT_0.6V    ADM1066 U51/LTC2499  {0:.3f}         N/A           N/A' .format(voltage))
 print('DDR4_VDDQ_1.2V   ADM1066 U51/LTC2499  {0:.3f}         {1:.3f}         {2:.3f}' .format(voltage*2,current,2*voltage*current))
 
-if v4b:
+if board == 'v4b':
   voltage=adm1066_voltage_mon(ADM1066_U52_ADDR,0xFD,0x1F,0xA2,0xA3,1)# read ADM1066 U52 channel VP2 INT_A_0.85V
   current=ltc2499_current_mon(LTC2499_U1_ADDR,0x90,0xB0)#read current of INT_A_0.85V from LTC2499
   print('INT_A_0.85V      ADM1066 U52/LTC2499  {0:.3f}         {1:.3f}         {2:.3f}' .format(voltage,current,voltage*current))

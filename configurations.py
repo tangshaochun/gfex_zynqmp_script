@@ -1,3 +1,5 @@
+board = 'v4a'
+
 # https://www.silabs.com/documents/public/reference-manuals/Si5345-44-42-D-RM.pdf
 Si5345 = {
   "preamble": [0x0B,0x24,0xD8,    0x0B,0x25,0x00],
