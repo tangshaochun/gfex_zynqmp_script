@@ -5,6 +5,7 @@ from time import sleep
 import sys
 
 from periphery import I2C
+# all hw addresses are defined in here
 from constants import *
 from configurations import board
 

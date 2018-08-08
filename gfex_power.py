@@ -5,9 +5,11 @@ from time import sleep
 import sys
 
 from periphery import I2C
+# all hw addresses are defined in here
 from constants import *
 from configurations import board
 
+# imported from manufacturer tech reference manual for the chip (ask Shaochun where it came from)
 #convert a LinearFloat5_11 formatted word into a floating point value
 def lin5_11ToFloat(wordValue):
   binValue = int(wordValue,16)
